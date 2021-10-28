@@ -125,6 +125,10 @@ s! {
 }
 // end locale.h
 
+// start poll.h
+pub type nfds_t = ::c_uint;
+// end poll.h
+
 // start LibDl/dlfcn.h
 s! {
     pub struct Dl_info {
