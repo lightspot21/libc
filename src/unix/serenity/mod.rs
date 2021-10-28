@@ -84,3 +84,14 @@ s! {
     }
 }
 // end dirent.h
+
+// start LibDl/dlfcn.h
+s! {
+    pub struct Dl_info {
+        dli_fname: *const ::c_char,
+        dli_fbase: *mut ::c_void,
+        dli_sname: *const ::c_char,
+        dli_saddr: *mut ::c_void
+    }
+}
+// end LibDl/dlfcn.h
