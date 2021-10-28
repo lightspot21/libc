@@ -65,9 +65,22 @@ s! {
 pub type rlim_t = ::size_t;
 // end sys/resource.h
 
-// start sys/signal.h
+// start signal.h
 pub type sigset_t = u32;
-// end sys/signal.h
+
+s! {
+    pub struct sigaction {
+//        #[repr(C)]
+//        pub union u {
+//            sa_handler: *mut fn(::c_int) -> ::c_void,
+//            sa_sigaction: *mut fn(::c_int, *mut ::siginfo_t, *mut ::c_void) -> ::c_void
+//        }
+        pub sa_mask: ::sigset_t,
+        pub sa_flags: ::c_int
+    }
+}
+
+// end signal.h
 
 // start netdb.h
 s! {
@@ -188,6 +201,12 @@ s! {
     }
 }
 // end time.h
+
+// start wchar.h
+// CAUTION: Defined this based on GCC's default definition on x86_64-unknown-linux-gnu.
+// May be wrong assumption!
+pub type wchar_t = ::c_int;
+// end wchar.h
 
 // start LibDl/dlfcn.h
 s! {
