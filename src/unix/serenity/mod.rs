@@ -74,8 +74,8 @@ s! {
         pub st_ino: ::ino_t,
         pub st_mode: ::mode_t,
         pub st_nlink: ::nlink_t,
-        pub st_uid: ::uid_t,
-        pub st_gid: ::gid_t,
+        pub st_uid: uid_t,
+        pub st_gid: gid_t,
         pub st_rdev: ::dev_t,
         pub st_size: ::off_t,
         pub st_blksize: ::blksize_t,
@@ -198,8 +198,8 @@ s! {
     pub struct passwd {
         pub pw_name: *mut ::c_char,
         pub pw_passwd: *mut ::c_char,
-        pub pw_uid: ::uid_t,
-        pub pw_gid: ::gid_t,
+        pub pw_uid: uid_t,
+        pub pw_gid: gid_t,
         pub pw_gecos: *mut ::c_char,
         pub pw_dir: *mut ::c_char,
         pub pw_shell: *mut ::c_char
@@ -223,7 +223,7 @@ s! {
         pub c_oflag: ::tcflag_t,
         pub c_cflag: ::tcflag_t,
         pub c_lflag: ::tcflag_t,
-        pub c_cc: [::cc_t; NCCS],
+        pub c_cc: [cc_t; NCCS],
         pub c_ispeed: ::speed_t,
         pub c_ospeed: ::speed_t
     }
