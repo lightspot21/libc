@@ -65,6 +65,10 @@ s! {
 pub type rlim_t = ::size_t;
 // end sys/resource.h
 
+// start sys/signal.h
+pub type sigset_t = u32;
+// end sys/signal.h
+
 // start netdb.h
 s! {
     pub struct addrinfo { //Userland/Libraries/LibC/netdb.h
