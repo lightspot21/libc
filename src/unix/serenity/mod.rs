@@ -28,21 +28,21 @@ pub type pthread_rwlock_t = u64;
 pub type pthread_t = ::c_int;
 s! {
     pub struct pthread_cond_t {
-        mutex: *mut ::pthread_mutex_t,
-        value: u32,
-        clockid: ::c_int //clockid_t
+        pub mutex: *mut ::pthread_mutex_t,
+        pub value: u32,
+        pub clockid: ::c_int //clockid_t
     }
     pub struct pthread_condattr_t {
-        clockid: ::c_int //clockid_t
+        pub clockid: ::c_int //clockid_t
     }
     pub struct pthread_mutexattr_t {
-        type: ::c_int
+        pub type: ::c_int
     }
     pub struct pthread_mutex_t {
-        lock: u32,
-        owner: ::pthread_t,
-        level: ::c_int,
-        type: ::c_int
+        pub lock: u32,
+        pub owner: ::pthread_t,
+        pub level: ::c_int,
+        pub type: ::c_int
     }
 }
 // end sys/types.h
@@ -52,8 +52,8 @@ pub type sa_family_t = u16; //Kernel/API/POSIX/sys/socket.h:55
 
 s! {
     pub struct sockaddr {
-        sa_family: ::sa_family_t,
-        sa_data: [::c_char, 14] 
+        pub sa_family: ::sa_family_t,
+        pub sa_data: [::c_char, 14] 
     }
 }
 // end sys/socket.h
@@ -61,14 +61,14 @@ s! {
 // start netdb.h
 s! {
     pub struct addrinfo { //Userland/Libraries/LibC/netdb.h
-        ai_flags: ::c_int,
-        ai_family: ::c_int,
-        ai_socktype: ::c_int,
-        ai_protocol: ::c_int,
-        ai_addrlen: ::socklen_t,
-        ai_addr: *mut ::sockaddr,
-        ai_canonname: *mut ::c_char,
-        ai_next: *mut ::addrinfo,
+        pub ai_flags: ::c_int,
+        pub ai_family: ::c_int,
+        pub ai_socktype: ::c_int,
+        pub ai_protocol: ::c_int,
+        pub ai_addrlen: ::socklen_t,
+        pub ai_addr: *mut ::sockaddr,
+        pub ai_canonname: *mut ::c_char,
+        pub ai_next: *mut ::addrinfo,
     }
 }
 // end netdb.h
@@ -76,11 +76,11 @@ s! {
 // start dirent.h
 s! {
     pub struct dirent {
-        d_ino: ::ino_t,
-        d_off: ::off_t,
-        d_reclen: ::c_ushort,
-        d_type: ::c_uchar,
-        d_name: [::c_char, 256]
+        pub d_ino: ::ino_t,
+        pub d_off: ::off_t,
+        pub d_reclen: ::c_ushort,
+        pub d_type: ::c_uchar,
+        pub d_name: [::c_char, 256]
     }
 }
 // end dirent.h
@@ -88,10 +88,10 @@ s! {
 // start LibDl/dlfcn.h
 s! {
     pub struct Dl_info {
-        dli_fname: *const ::c_char,
-        dli_fbase: *mut ::c_void,
-        dli_sname: *const ::c_char,
-        dli_saddr: *mut ::c_void
+        pub dli_fname: *const ::c_char,
+        pub dli_fbase: *mut ::c_void,
+        pub dli_sname: *const ::c_char,
+        pub dli_saddr: *mut ::c_void
     }
 }
 // end LibDl/dlfcn.h
