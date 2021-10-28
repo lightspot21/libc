@@ -111,17 +111,56 @@ pub type sigset_t = u32;
 
 s! {
     pub struct sigaction {
-//        #[repr(C)]
-//        pub union u {
-//            sa_handler: *mut fn(::c_int) -> ::c_void,
-//            sa_sigaction: *mut fn(::c_int, *mut ::siginfo_t, *mut ::c_void) -> ::c_void
-//        }
+       // pub union u {
+       //     sa_handler: *mut fn(::c_int) -> ::c_void,
+       //     sa_sigaction: *mut fn(::c_int, *mut ::siginfo_t, *mut ::c_void) -> ::c_void
+       // }
         pub sa_mask: ::sigset_t,
         pub sa_flags: ::c_int
     }
 }
 
 // end signal.h
+
+// start netinet/in.h
+s! {
+    pub struct in_addr {
+        pub s_addr: u32
+    }
+    pub struct sockaddr_in {
+        pub sin_family: ::sa_family_t,
+        pub sin_port: ::in_port_t,
+        pub sin_addr: ::in_addr,
+        pub sin_zero: [::c_char; 8]
+    }
+
+    pub struct sockaddr_in6 {
+        pub sin6_family: ::sa_family_t,
+        pub sin6_port: ::in_port_t,
+        pub sin6_flowinfo: u32,
+        pub sin6_addr: ::in6_addr,
+        pub sin6_scope_id: u32
+    }
+    pub struct sockaddr_storage {
+        pub ss_family: ::sa_family_t,
+        // pub union {
+        //     data: [::c_char; mem::size_of<sockaddr_un>()], //char data[sizeof(struct sockaddr_un)];
+        //     alignment: *mut ::c_void
+        // }
+    }
+}
+// end netinet/in.h
+
+// start sys/un.h
+pub const UNIX_PATH_MAX: usize = 108;
+s! {
+    pub struct sockaddr_un {
+        pub sun_family: u16,
+        pub sun_path: [::c_char; UNIX_PATH_MAX]
+    }
+}
+// end sys/un.h
+
 
 // start netdb.h
 s! {
