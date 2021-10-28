@@ -160,3 +160,11 @@ s! {
     }
 }
 // end LibDl/dlfcn.h
+
+// start LibPthread/semaphore.h
+s! {
+    pub struct sem_t {
+        pub value: u32
+    }
+}
+// end LibPthread/semaphore.h
