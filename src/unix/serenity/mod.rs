@@ -154,6 +154,23 @@ s! {
 pub type nfds_t = ::c_uint;
 // end poll.h
 
+// start termios.h
+pub type speed_t = u32;
+pub const NCCS: usize = 32;
+
+s! {
+    pub struct termios {
+        c_iflag: ::tcflag_t,
+        c_oflag: ::tcflag_t,
+        c_cflag: ::tcflag_t,
+        c_lflag: ::tcflag_t,
+        c_cc: [::cc_t, NCCS],
+        c_ispeed: ::speed_t,
+        c_ospeed: ::speed_t
+    }
+}
+// end termios.h
+
 // start LibDl/dlfcn.h
 s! {
     pub struct Dl_info {
