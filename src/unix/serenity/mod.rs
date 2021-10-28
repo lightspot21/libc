@@ -156,6 +156,8 @@ pub type nfds_t = ::c_uint;
 
 // start termios.h
 pub type speed_t = u32;
+pub type tcflag_t = u32;
+pub type cc_t = u8;
 pub const NCCS: usize = 32;
 
 s! {
@@ -170,6 +172,22 @@ s! {
     }
 }
 // end termios.h
+
+// start time.h
+s! {
+    pub struct tm {
+        pub tm_sec: ::c_int,
+        pub tm_min: ::c_int,
+        pub tm_hour: ::c_int,
+        pub tm_mday: ::c_int,
+        pub tm_mon: ::c_int,
+        pub tm_year: ::c_int,
+        pub tm_wday: ::c_int,
+        pub tm_yday: ::c_int,
+        pub tm_isdst: ::c_int,
+    }
+}
+// end time.h
 
 // start LibDl/dlfcn.h
 s! {
