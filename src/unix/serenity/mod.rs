@@ -21,6 +21,9 @@ pub type suseconds_t = i32;
 pub type time_t = i64;
 pub type ino_t = u64;
 
+pub type uid_t = u32;
+pub type gid_t = u32;
+
 pub type pthread_attr_t = *mut ::c_void;
 pub type pthread_key_t = ::c_int;
 pub type pthread_rwlockattr_t = *mut ::c_void;
@@ -124,6 +127,20 @@ s! {
     }
 }
 // end locale.h
+
+// start pwd.h
+s! {
+    pub struct passwd {
+        pw_name: *mut ::c_char,
+        pw_passwd: *mut ::c_char,
+        pw_uid: ::uid_t,
+        pw_gid: ::gid_t,
+        pw_gecos: *mut ::c_char,
+        pw_dir: *mut ::c_char,
+        pw_shell: *mut ::c_char
+    }
+}
+// end pwd.h
 
 // start poll.h
 pub type nfds_t = ::c_uint;
