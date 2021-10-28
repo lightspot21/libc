@@ -19,6 +19,7 @@ pub type mode_t = u16;
 pub type off_t = i64;
 pub type suseconds_t = i32;
 pub type time_t = i64;
+pub type ino_t = u64;
 
 pub type pthread_attr_t = *mut ::c_void;
 pub type pthread_key_t = ::c_int;
@@ -71,3 +72,15 @@ s! {
     }
 }
 // end netdb.h
+
+// start dirent.h
+s! {
+    pub struct dirent {
+        d_ino: ::ino_t,
+        d_off: ::off_t,
+        d_reclen: ::c_ushort,
+        d_type: ::c_uchar,
+        d_name: [::c_char, 256]
+    }
+}
+// end dirent.h
