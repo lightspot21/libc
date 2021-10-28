@@ -27,6 +27,8 @@ pub type gid_t = u32;
 pub type nlink_t = u32;
 pub type blksize_t = u32;
 pub type blkcnt_t = u32;
+pub type fsblkcnt_t = u64;
+pub type fsfilcnt_t = u64;
 
 pub type pthread_attr_t = *mut ::c_void;
 pub type pthread_key_t = ::c_int;
@@ -84,6 +86,24 @@ s! {
     }
 }
 // end sys/stat.h
+
+// start sys/statvfs.h
+s! {
+    pub struct statvfs {
+        pub f_bsize: ::c_ulong,
+        pub f_frsize: ::c_ulong,
+        pub f_blocks: ::fsblkcnt_t,
+        pub f_bfree: ::fsblkcnt_t,
+        pub f_bavail: ::fsblkcnt_t,
+        pub f_files: ::fsfilcnt_t,
+        pub f_ffree: ::fsfilcnt_t,
+        pub f_favail: ::fsfilcnt_t,
+        pub f_fsid: ::c_ulong,
+        pub f_flag: ::c_ulong,
+        pub f_namemax: ::c_ulong
+    }
+}
+// end sys/statvfs.h
 
 // start sys/resource.h
 pub type rlim_t = ::size_t;
