@@ -24,6 +24,10 @@ pub type ino_t = u64;
 pub type uid_t = u32;
 pub type gid_t = u32;
 
+pub type nlink_t = u32;
+pub type blksize_t = u32;
+pub type blkcnt_t = u32;
+
 pub type pthread_attr_t = *mut ::c_void;
 pub type pthread_key_t = ::c_int;
 pub type pthread_rwlockattr_t = *mut ::c_void;
@@ -60,6 +64,26 @@ s! {
     }
 }
 // end sys/socket.h
+
+// start sys/stat.h
+s! {
+    pub struct stat {
+        pub st_dev: ::dev_t,
+        pub st_ino: ::ino_t,
+        pub st_mode: ::mode_t,
+        pub st_nlink: ::nlink_t,
+        pub st_uid: ::uid_t,
+        pub st_gid: ::gid_t,
+        pub st_rdev: ::dev_t,
+        pub st_size: ::off_t,
+        pub st_blksize: ::blksize_t,
+        pub st_blocks: ::blkcnt_t,
+        pub st_atim: ::timespec,
+        pub st_mtim: ::timespec,
+        pub st_ctim: ::timespec
+    }
+}
+// end sys/stat.h
 
 // start sys/resource.h
 pub type rlim_t = ::size_t;
@@ -175,13 +199,13 @@ pub const NCCS: usize = 32;
 
 s! {
     pub struct termios {
-        c_iflag: ::tcflag_t,
-        c_oflag: ::tcflag_t,
-        c_cflag: ::tcflag_t,
-        c_lflag: ::tcflag_t,
-        c_cc: [::cc_t; NCCS],
-        c_ispeed: ::speed_t,
-        c_ospeed: ::speed_t
+        pub c_iflag: ::tcflag_t,
+        pub c_oflag: ::tcflag_t,
+        pub c_cflag: ::tcflag_t,
+        pub c_lflag: ::tcflag_t,
+        pub c_cc: [::cc_t; NCCS],
+        pub c_ispeed: ::speed_t,
+        pub c_ospeed: ::speed_t
     }
 }
 // end termios.h
@@ -198,6 +222,11 @@ s! {
         pub tm_wday: ::c_int,
         pub tm_yday: ::c_int,
         pub tm_isdst: ::c_int,
+    }
+
+    pub struct timespec {
+        pub tv_sec: ::time_t,
+        pub tv_nsec: ::c_long
     }
 }
 // end time.h
