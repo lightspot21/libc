@@ -85,6 +85,15 @@ s! {
 }
 // end dirent.h
 
+// start fd_set.h
+pub const FD_SETSIZE: usize = 1024;
+s! {
+    pub struct fd_set {
+        fds_bits: [::c_uchar, FD_SETSIZE / 8]
+    }
+}
+// end fd_set.h
+
 // start LibDl/dlfcn.h
 s! {
     pub struct Dl_info {
