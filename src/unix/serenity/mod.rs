@@ -211,7 +211,6 @@ pub type nfds_t = ::c_uint;
 // start termios.h
 pub type speed_t = u32;
 pub type tcflag_t = u32;
-pub type cc_t = u8;
 pub const NCCS: usize = 32;
 
 s! {
@@ -220,7 +219,7 @@ s! {
         pub c_oflag: ::tcflag_t,
         pub c_cflag: ::tcflag_t,
         pub c_lflag: ::tcflag_t,
-        pub c_cc: [cc_t; NCCS],
+        pub c_cc: [::cc_t; NCCS],
         pub c_ispeed: ::speed_t,
         pub c_ospeed: ::speed_t
     }
@@ -239,11 +238,6 @@ s! {
         pub tm_wday: ::c_int,
         pub tm_yday: ::c_int,
         pub tm_isdst: ::c_int,
-    }
-
-    pub struct timespec {
-        pub tv_sec: ::time_t,
-        pub tv_nsec: ::c_long
     }
 }
 // end time.h
