@@ -39,13 +39,13 @@ s! {
         pub clockid: ::c_int //clockid_t
     }
     pub struct pthread_mutexattr_t {
-        pub type: ::c_int
+        pub r#type: ::c_int
     }
     pub struct pthread_mutex_t {
         pub lock: u32,
         pub owner: ::pthread_t,
         pub level: ::c_int,
-        pub type: ::c_int
+        pub r#type: ::c_int
     }
 }
 // end sys/types.h
@@ -56,7 +56,7 @@ pub type sa_family_t = u16; //Kernel/API/POSIX/sys/socket.h:55
 s! {
     pub struct sockaddr {
         pub sa_family: ::sa_family_t,
-        pub sa_data: [::c_char, 14] 
+        pub sa_data: [::c_char; 14] 
     }
 }
 // end sys/socket.h
@@ -91,7 +91,7 @@ s! {
         pub d_off: ::off_t,
         pub d_reclen: ::c_ushort,
         pub d_type: ::c_uchar,
-        pub d_name: [::c_char, 256]
+        pub d_name: [::c_char; 256]
     }
 }
 // end dirent.h
@@ -100,7 +100,7 @@ s! {
 pub const FD_SETSIZE: usize = 1024;
 s! {
     pub struct fd_set {
-        pub fds_bits: [::c_uchar, FD_SETSIZE / 8]
+        pub fds_bits: [::c_uchar; FD_SETSIZE / 8]
     }
 }
 // end fd_set.h
@@ -118,19 +118,19 @@ s! {
         pub mon_grouping: *mut ::c_char,
         pub positive_sign: *mut ::c_char,
         pub negative_sign: *mut ::c_char,
-        pub int_frac_digits: ::c_char
-        pub frac_digits: ::c_char
-        pub p_cs_precedes: ::c_char
-        pub p_sep_by_space: ::c_char
-        pub n_cs_precedes: ::c_char
-        pub n_sep_by_space: ::c_char
-        pub p_sign_posn: ::c_char
-        pub n_sign_posn: ::c_char
-        pub int_p_cs_precedes: ::c_char
-        pub int_p_sep_by_space: ::c_char
-        pub int_n_cs_precedes: ::c_char
-        pub int_n_sep_by_space: ::c_char
-        pub int_p_sign_posn: ::c_char
+        pub int_frac_digits: ::c_char,
+        pub frac_digits: ::c_char,
+        pub p_cs_precedes: ::c_char,
+        pub p_sep_by_space: ::c_char,
+        pub n_cs_precedes: ::c_char,
+        pub n_sep_by_space: ::c_char,
+        pub p_sign_posn: ::c_char,
+        pub n_sign_posn: ::c_char,
+        pub int_p_cs_precedes: ::c_char,
+        pub int_p_sep_by_space: ::c_char,
+        pub int_n_cs_precedes: ::c_char,
+        pub int_n_sep_by_space: ::c_char,
+        pub int_p_sign_posn: ::c_char,
         pub int_n_sign_posn: ::c_char
     }
 }
@@ -166,7 +166,7 @@ s! {
         c_oflag: ::tcflag_t,
         c_cflag: ::tcflag_t,
         c_lflag: ::tcflag_t,
-        c_cc: [::cc_t, NCCS],
+        c_cc: [::cc_t; NCCS],
         c_ispeed: ::speed_t,
         c_ospeed: ::speed_t
     }
