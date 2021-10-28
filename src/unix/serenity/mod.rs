@@ -62,7 +62,7 @@ s! {
 // end sys/socket.h
 
 // start sys/resource.h
-pub type rlim_t = ::c_size_t;
+pub type rlim_t = ::size_t;
 // end sys/resource.h
 
 // start netdb.h
