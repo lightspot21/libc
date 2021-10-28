@@ -1475,6 +1475,9 @@ cfg_if! {
     } else if #[cfg(target_os = "redox")] {
         mod redox;
         pub use self::redox::*;
+    } else if #[cfg(target_os = "serenity")] {
+        mod serenity;
+        pub use self::serenity::*;
     } else {
         // Unknown target_os
     }
