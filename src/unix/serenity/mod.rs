@@ -61,6 +61,10 @@ s! {
 }
 // end sys/socket.h
 
+// start sys/resource.h
+pub type rlim_t = ::c_size_t;
+// end sys/resource.h
+
 // start netdb.h
 s! {
     pub struct addrinfo { //Userland/Libraries/LibC/netdb.h
@@ -131,13 +135,13 @@ s! {
 // start pwd.h
 s! {
     pub struct passwd {
-        pw_name: *mut ::c_char,
-        pw_passwd: *mut ::c_char,
-        pw_uid: ::uid_t,
-        pw_gid: ::gid_t,
-        pw_gecos: *mut ::c_char,
-        pw_dir: *mut ::c_char,
-        pw_shell: *mut ::c_char
+        pub pw_name: *mut ::c_char,
+        pub pw_passwd: *mut ::c_char,
+        pub pw_uid: ::uid_t,
+        pub pw_gid: ::gid_t,
+        pub pw_gecos: *mut ::c_char,
+        pub pw_dir: *mut ::c_char,
+        pub pw_shell: *mut ::c_char
     }
 }
 // end pwd.h
