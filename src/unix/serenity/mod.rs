@@ -16,6 +16,11 @@ extern "C" {
 }
 // end sys/ioctl.h
 
+// start sys/ioctl_numbers.h
+pub const FIONBIO: ::c_int = 37;
+pub const FIOCLEX: ::c_int = 0; // This constant does not exist in SerenityOS.
+// end sys/ioctl_numbers.h
+
 // start sys/types.h
 pub type socklen_t = u32; //Kernel/API/POSIX/sys/types.h:56
 pub type clock_t = u32;
@@ -177,8 +182,6 @@ s! {
 // end netinet/in.h
 
 // start sys/uio.h
-//
-// Functions till now: ioctl, pthread_condattr_setclock, pthread_create, pthread_sigmask, readv
 extern "C" {
     pub fn readv(fd: ::c_int, iov: *const ::iovec, iov_count: ::c_int) -> ::ssize_t;
     pub fn writev(fd: ::c_int, iov: *const ::iovec, iov_count: ::c_int) -> ::ssize_t;
@@ -241,6 +244,8 @@ s! {
         pub ai_next: *mut ::addrinfo,
     }
 }
+
+pub const EAI_SYSTEM: ::c_int = 11;
 // end netdb.h
 
 // start dirent.h
@@ -270,6 +275,8 @@ pub const EWOULDBLOCK: ::c_int = EAGAIN;
 
 // start fcntl.h
 pub const AT_FDCWD: ::c_int = -100;
+pub const F_DUPFD: ::c_int = 0;
+pub const F_DUPFD_CLOEXEC: ::c_int = F_DUPFD; // This constant does not exist in SerenityOS.
 pub const F_GETFL: ::c_int = 3;
 pub const F_SETFL: ::c_int = 4;
 
