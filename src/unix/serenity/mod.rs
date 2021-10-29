@@ -79,7 +79,11 @@ pub const SHUT_RDWR: ::c_int = 3;
 
 pub const SOCK_DGRAM: ::c_int = 2;
 pub const SOCK_STREAM: ::c_int = 1;
+pub const SOL_SOCKET: ::c_int = 1;
 
+pub const SO_ERROR: ::c_int = 3;
+pub const SO_RCVTIMEO: ::c_int = 0;
+pub const SO_SNDTIMEO: ::c_int = 1;
 s! {
     pub struct sockaddr {
         pub sa_family: ::sa_family_t,
@@ -95,6 +99,14 @@ extern "C" {
 // end sys/socket.h
 
 // start sys/stat.h
+pub const S_IFBLK: ::c_int = 0060000;
+pub const S_IFCHR: ::c_int = 0020000;
+pub const S_IFDIR: ::c_int = 0040000;
+pub const S_IFIFO: ::c_int = 0010000;
+pub const S_IFLNK: ::c_int = 0120000;
+pub const S_IFMT: ::c_int = 0170000;
+pub const S_IFREG: ::c_int = 0100000;
+pub const S_IFSOCK: ::c_int = 0140000;
 s! {
     pub struct stat {
         pub st_dev: ::dev_t,
@@ -139,6 +151,7 @@ pub type rlim_t = ::size_t;
 // start signal.h
 pub type sigset_t = u32;
 
+pub const SIG_SETMASK: ::c_int = 2;
 s! {
     pub struct sigaction {
        // pub union u {
@@ -151,6 +164,11 @@ s! {
 }
 
 // end signal.h
+
+// start signal_numbers.h
+pub const SIGKILL: ::c_int = 9;
+pub const SIGPIPE: ::c_int = 13;
+// end signal_numbers.h
 
 // start netinet/in.h
 s! {
@@ -181,6 +199,10 @@ s! {
 }
 // end netinet/in.h
 
+// start netinet/tcp.h
+pub const TCP_NODELAY: ::c_int = 10;
+// end netinet/tcp.h
+
 // start sys/uio.h
 extern "C" {
     pub fn readv(fd: ::c_int, iov: *const ::iovec, iov_count: ::c_int) -> ::ssize_t;
@@ -199,6 +221,7 @@ s! {
 // end sys/un.h
 
 // start sys/wait.h
+pub const WNOHANG: ::c_int = 1;
 safe_f! {
     pub {const} fn WEXITSTATUS(status: ::c_int) -> ::c_int {
         (status & 0xff00) >> 8
@@ -302,6 +325,10 @@ s! {
 }
 // end fd_set.h
 
+// start limits.h
+pub const PTHREAD_STACK_MIN: ::c_int = 65536;
+// end limits.h
+
 // start locale.h
 s! {
     pub struct lconv {
@@ -353,7 +380,24 @@ extern "C" {
 
 // start poll.h
 pub type nfds_t = ::c_uint;
+
+pub const POLLHUP: ::c_int = 1 << 4;
+pub const POLLIN: ::c_int = 1 << 0;
+pub const POLLNVAL: ::c_int = 1 << 5;
+pub const POLLOUT: ::c_int = 1 << 2;
 // end poll.h
+
+// start pthread_integration.h
+pub const PTHREAD_MUTEX_NORMAL: ::c_int = 0;
+pub const PTHREAD_MUTEX_RECURSIVE: ::c_int = 1;
+pub const PTHREAD_MUTEX_INITIALIZER: ::pthread_mutex_t = pthread_mutex_t {lock: 0 as u32, owner: 0 as ::pthread_t, level: 0 as ::c_int, r#type: PTHREAD_MUTEX_NORMAL};
+// end pthread_integration.h
+
+// start stdio.h
+pub const SEEK_SET: ::c_int = 0;
+pub const SEEK_CUR: ::c_int = 1;
+pub const SEEK_END: ::c_int = 2;
+// end stdio.h
 
 // start termios.h
 pub type speed_t = u32;
@@ -378,6 +422,7 @@ pub type clockid_t = ::c_int;
 
 pub const CLOCK_REALTIME: ::c_int = 0;
 pub const CLOCK_MONOTONIC: ::c_int = 1;
+pub const CLOCK_MONOTONIC_COARSE: ::c_int = 4;
 s! {
     pub struct tm {
         pub tm_sec: ::c_int,
@@ -399,6 +444,12 @@ extern "C" {
 // end time.h
 
 // start unistd.h
+pub const _SC_GETPW_R_SIZE_MAX: ::c_int = 7;
+pub const _SC_PAGESIZE: ::c_int = 6;
+pub const STDERR_FILENO: ::c_int = 2;
+pub const STDOUT_FILENO: ::c_int = 1;
+pub const STDIN_FILENO: ::c_int = 0;
+
 extern "C" {
     pub fn setgroups(size: ::size_t, list: *const ::gid_t) -> ::c_int;
 }
@@ -411,6 +462,7 @@ pub type wchar_t = ::c_int;
 // end wchar.h
 
 // start LibDl/dlfcn.h
+pub const RTLD_DEFAULT: ::c_int = 0;
 s! {
     pub struct Dl_info {
         pub dli_fname: *const ::c_char,
@@ -422,6 +474,9 @@ s! {
 // end LibDl/dlfcn.h
 
 // start LibPthread/pthread.h
+pub const PTHREAD_COND_INITIALIZER: ::pthread_cond_t = pthread_cond_t {mutex: 0 as *mut ::pthread_mutex_t, value: 0 as u32, clockid: CLOCK_MONOTONIC_COARSE};
+pub const PTHREAD_RWLOCK_INITIALIZER: ::c_int = 0; // This constant does not exist in SerenityOS.
+
 extern "C" {
     pub fn pthread_condattr_setclock(attr: *mut pthread_condattr_t, clock: ::clockid_t) -> ::c_int;
     pub fn pthread_create(tid: *mut ::pthread_t, attr: *mut ::pthread_attr_t, start: extern "C" fn(*mut ::c_void) -> *mut ::c_void, arg: *mut ::c_void) -> ::c_int;
