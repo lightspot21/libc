@@ -10,6 +10,11 @@ pub type c_char = i8;
 pub type c_long = i32;
 pub type c_ulong = u32;
 
+// start sys/ioctl.h
+extern "C" {
+    pub fn ioctl(fd: ::c_int, request: ::c_uint, ...) -> ::c_int;
+}
+// end sys/ioctl.h
 
 // start sys/types.h
 pub type socklen_t = u32; //Kernel/API/POSIX/sys/types.h:56
@@ -66,6 +71,7 @@ s! {
 extern "C" {
     // original bind doesn't have a name for the third parameter
     pub fn bind(sockfd: ::c_int, addr: *const ::sockaddr, length: ::socklen_t) -> ::c_int;
+    pub fn recvfrom(sockfd: ::c_int, buffer: *mut ::c_void, buffer_length: ::size_t, flags: ::c_int, addr: *mut ::sockaddr, addr_length: *mut ::socklen_t) -> ::ssize_t;
 }
 // end sys/socket.h
 
@@ -155,6 +161,15 @@ s! {
     }
 }
 // end netinet/in.h
+
+// start sys/uio.h
+//
+// Functions till now: ioctl, pthread_condattr_setclock, pthread_create, pthread_sigmask, readv
+extern "C" {
+    pub fn readv(fd: ::c_int, iov: *const ::iovec, iov_count: ::c_int) -> ::ssize_t;
+    pub fn writev(fd: ::c_int, iov: *const ::iovec, iov_count: ::c_int) -> ::ssize_t;
+}
+// end sys/uio.h
 
 // start sys/un.h
 pub const UNIX_PATH_MAX: usize = 108;
@@ -328,6 +343,12 @@ extern "C" {
 }
 // end time.h
 
+// start unistd.h
+extern "C" {
+    pub fn setgroups(size: ::size_t, list: *const ::gid_t) -> ::c_int;
+}
+// end unistd.h
+
 // start wchar.h
 // CAUTION: Defined this based on GCC's (and clang's) default definition on x86_64-unknown-linux-gnu.
 // May be wrong assumption!
@@ -344,6 +365,15 @@ s! {
     }
 }
 // end LibDl/dlfcn.h
+
+// start LibPthread/pthread.h
+extern "C" {
+    pub fn pthread_condattr_setclock(attr: *mut pthread_condattr_t, clock: ::clockid_t) -> ::c_int;
+    pub fn pthread_create(tid: *mut ::pthread_t, attr: *mut ::pthread_attr_t, start: extern "C" fn(*mut ::c_void) -> *mut ::c_void, arg: *mut ::c_void) -> ::c_int;
+    pub fn pthread_sigmask(how: ::c_int, set: *const ::sigset_t, old_set: *mut ::sigset_t) -> ::c_int;
+}
+
+// end LibPthread/pthread.h
 
 // start LibPthread/semaphore.h
 s! {
