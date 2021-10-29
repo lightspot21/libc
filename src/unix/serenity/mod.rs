@@ -36,10 +36,10 @@ s! {
     pub struct pthread_cond_t {
         pub mutex: *mut ::pthread_mutex_t,
         pub value: u32,
-        pub clockid: ::c_int //clockid_t
+        pub clockid: ::clockid_t //originally int in the header, annotated as clockid_t
     }
     pub struct pthread_condattr_t {
-        pub clockid: ::c_int //clockid_t
+        pub clockid: ::clockid_t //originally int in the header, annotated as clockid_t
     }
     pub struct pthread_mutexattr_t {
         pub r#type: ::c_int
@@ -61,6 +61,11 @@ s! {
         pub sa_family: ::sa_family_t,
         pub sa_data: [::c_char; 14] 
     }
+}
+
+extern "C" {
+    // original bind doesn't have a name for the third parameter
+    pub fn bind(sockfd: ::c_int, addr: *const ::sockaddr, length: ::socklen_t) -> ::c_int;
 }
 // end sys/socket.h
 
@@ -161,6 +166,38 @@ s! {
 }
 // end sys/un.h
 
+// start sys/wait.h
+safe_f! {
+    pub {const} fn WEXITSTATUS(status: ::c_int) -> ::c_int {
+        (status & 0xff00) >> 8
+    }
+    pub {const} fn WSTOPSIG(status: ::c_int) -> ::c_int {
+        WEXITSTATUS(status)
+    }
+    pub {const} fn WTERMSIG(status: ::c_int) -> ::c_int {
+        status & 0x7f
+    }
+    pub {const} fn WIFEXITED(status: ::c_int) -> bool {
+        WTERMSIG(status) == 0
+    }
+    pub {const} fn WIFSTOPPED(status: ::c_int) -> bool {
+        (status & 0xff) == 0x7f
+    }
+    pub {const} fn WIFSIGNALED(status: ::c_int) -> bool {
+        (((status & 0x7f) + 1) >> 1) > 0
+    }
+    pub {const} fn WCOREDUMP(_status: ::c_int) -> bool {
+        // This function does not exist in SerenityOS.
+        // Assumption: no coredump produced.
+        false
+    }
+    pub {const} fn WIFCONTINUED(_status: ::c_int) -> bool {
+        // This function does not exist in SerenityOS.
+        // Assumption: the child process was not resumed by delivery of SIGCONT.
+        false
+    }
+}
+// end sys/wait.h
 
 // start netdb.h
 s! {
@@ -266,6 +303,7 @@ s! {
 // end termios.h
 
 // start time.h
+pub type clockid_t = ::c_int;
 s! {
     pub struct tm {
         pub tm_sec: ::c_int,
@@ -279,10 +317,15 @@ s! {
         pub tm_isdst: ::c_int,
     }
 }
+
+extern "C" {
+    // these arg names do not exist in SerenityOS source
+    pub fn clock_gettime(id: ::clockid_t, specptr: *mut ::timespec) -> ::c_int;
+}
 // end time.h
 
 // start wchar.h
-// CAUTION: Defined this based on GCC's default definition on x86_64-unknown-linux-gnu.
+// CAUTION: Defined this based on GCC's (and clang's) default definition on x86_64-unknown-linux-gnu.
 // May be wrong assumption!
 pub type wchar_t = ::c_int;
 // end wchar.h
