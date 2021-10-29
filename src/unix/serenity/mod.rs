@@ -355,6 +355,9 @@ s! {
 
 // start time.h
 pub type clockid_t = ::c_int;
+
+pub const CLOCK_REALTIME: ::c_int = 0;
+pub const CLOCK_MONOTONIC: ::c_int = 1;
 s! {
     pub struct tm {
         pub tm_sec: ::c_int,
