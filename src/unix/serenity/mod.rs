@@ -61,6 +61,20 @@ s! {
 // start sys/socket.h
 pub type sa_family_t = u16; //Kernel/API/POSIX/sys/socket.h:55
 
+pub const AF_INET: ::c_int = 2;
+pub const AF_INET6: ::c_int = 3;
+pub const AF_LOCAL: ::c_int = 1;
+pub const AF_UNIX: ::c_int = AF_LOCAL;
+
+pub const MSG_PEEK: ::c_int = 0x4;
+
+pub const SHUT_RD: ::c_int = 1;
+pub const SHUT_WR: ::c_int = 2;
+pub const SHUT_RDWR: ::c_int = 3;
+
+pub const SOCK_DGRAM: ::c_int = 2;
+pub const SOCK_STREAM: ::c_int = 1;
+
 s! {
     pub struct sockaddr {
         pub sa_family: ::sa_family_t,
