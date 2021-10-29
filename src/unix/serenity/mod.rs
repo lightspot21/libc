@@ -255,6 +255,19 @@ s! {
 }
 // end dirent.h
 
+// start errno_numbers.h
+pub const EINTR: ::c_int = 4;
+pub const EBADF: ::c_int = 9;
+pub const EAGAIN: ::c_int = 11;
+pub const EINVAL: ::c_int = 22;
+pub const ERANGE: ::c_int = 33;
+pub const EDEADLK: ::c_int = 65;
+pub const ETIMEDOUT: ::c_int = 66;
+pub const EINPROGRESS: ::c_int = 68;
+pub const EWOULDBLOCK: ::c_int = EAGAIN;
+
+// end errno_numbers.h
+
 // start fcntl.h
 pub const AT_FDCWD: ::c_int = -100;
 pub const F_GETFL: ::c_int = 3;
