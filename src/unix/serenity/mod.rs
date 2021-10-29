@@ -255,6 +255,24 @@ s! {
 }
 // end dirent.h
 
+// start fcntl.h
+pub const AT_FDCWD: ::c_int = -100;
+pub const F_GETFL: ::c_int = 3;
+pub const F_SETFL: ::c_int = 4;
+
+pub const O_ACCMODE: ::c_int = O_RDONLY | O_WRONLY;
+pub const O_APPEND: ::c_int = 1 << 7;
+pub const O_CLOEXEC: ::c_int = 1 << 11;
+pub const O_CREAT: ::c_int = 1 << 3;
+pub const O_EXCL: ::c_int = 1 << 4;
+pub const O_NONBLOCK: ::c_int = 1 << 8;
+pub const O_RDONLY: ::c_int = 1 << 0;
+pub const O_RDWR: ::c_int = O_RDONLY | O_WRONLY;
+pub const O_TRUNC: ::c_int = 1 << 6;
+pub const O_WRONLY: ::c_int = 1 << 1;
+
+// end fcntl.h
+
 // start fd_set.h
 pub const FD_SETSIZE: usize = 1024;
 s! {
