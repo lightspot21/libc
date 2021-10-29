@@ -278,6 +278,10 @@ s! {
         pub pw_shell: *mut ::c_char
     }
 }
+
+extern "C" {
+    pub fn getpwuid_r(uid: ::uid_t, pwd: *mut passwd, buf: *mut ::c_char, buflen: ::size_t, result: *mut *mut passwd) -> ::c_int;
+}
 // end pwd.h
 
 // start poll.h
