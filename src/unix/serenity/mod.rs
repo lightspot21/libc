@@ -17,8 +17,8 @@ extern "C" {
 // end sys/ioctl.h
 
 // start sys/ioctl_numbers.h
-pub const FIONBIO: ::c_int = 37;
-pub const FIOCLEX: ::c_int = 0; // This constant does not exist in SerenityOS.
+pub const FIONBIO: ::c_uint = 37;
+pub const FIOCLEX: ::c_uint = 0; // This constant does not exist in SerenityOS.
 // end sys/ioctl_numbers.h
 
 // start sys/types.h
@@ -396,7 +396,7 @@ s! {
 // end fd_set.h
 
 // start limits.h
-pub const PTHREAD_STACK_MIN: ::c_int = 65536;
+pub const PTHREAD_STACK_MIN: ::size_t = 65536;
 // end limits.h
 
 // start locale.h
@@ -537,7 +537,7 @@ pub type wchar_t = ::c_int;
 // end wchar.h
 
 // start LibDl/dlfcn.h
-pub const RTLD_DEFAULT: ::c_int = 0;
+pub const RTLD_DEFAULT: *mut ::c_void = 0i64 as *mut ::c_void;
 s! {
     pub struct Dl_info {
         pub dli_fname: *const ::c_char,
@@ -550,11 +550,11 @@ s! {
 
 // start LibPthread/pthread.h
 pub const PTHREAD_COND_INITIALIZER: ::pthread_cond_t = pthread_cond_t {mutex: 0 as *mut ::pthread_mutex_t, value: 0 as u32, clockid: CLOCK_MONOTONIC_COARSE};
-pub const PTHREAD_RWLOCK_INITIALIZER: ::c_int = 0; // This constant does not exist in SerenityOS.
+pub const PTHREAD_RWLOCK_INITIALIZER: ::c_ulonglong = 0; // This constant does not exist in SerenityOS.
 
 extern "C" {
     pub fn pthread_condattr_setclock(attr: *mut pthread_condattr_t, clock: ::clockid_t) -> ::c_int;
-    pub fn pthread_create(tid: *mut ::pthread_t, attr: *mut ::pthread_attr_t, start: extern "C" fn(*mut ::c_void) -> *mut ::c_void, arg: *mut ::c_void) -> ::c_int;
+    pub fn pthread_create(tid: *mut ::pthread_t, attr: *const ::pthread_attr_t, start: extern "C" fn(*mut ::c_void) -> *mut ::c_void, arg: *mut ::c_void) -> ::c_int;
     pub fn pthread_sigmask(how: ::c_int, set: *const ::sigset_t, old_set: *mut ::sigset_t) -> ::c_int;
 }
 
