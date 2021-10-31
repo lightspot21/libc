@@ -100,14 +100,14 @@ extern "C" {
 // end sys/socket.h
 
 // start sys/stat.h
-pub const S_IFBLK: ::c_int = 0060000;
-pub const S_IFCHR: ::c_int = 0020000;
-pub const S_IFDIR: ::c_int = 0040000;
-pub const S_IFIFO: ::c_int = 0010000;
-pub const S_IFLNK: ::c_int = 0120000;
-pub const S_IFMT: ::c_int = 0170000;
-pub const S_IFREG: ::c_int = 0100000;
-pub const S_IFSOCK: ::c_int = 0140000;
+pub const S_IFBLK: ::c_ushort = 0060000;
+pub const S_IFCHR: ::c_ushort = 0020000;
+pub const S_IFDIR: ::c_ushort = 0040000;
+pub const S_IFIFO: ::c_ushort = 0010000;
+pub const S_IFLNK: ::c_ushort = 0120000;
+pub const S_IFMT: ::c_ushort = 0170000;
+pub const S_IFREG: ::c_ushort = 0100000;
+pub const S_IFSOCK: ::c_ushort = 0140000;
 s! {
     pub struct stat {
         pub st_dev: ::dev_t,
@@ -451,10 +451,10 @@ extern "C" {
 // start poll.h
 pub type nfds_t = ::c_uint;
 
-pub const POLLHUP: ::c_int = 1 << 4;
-pub const POLLIN: ::c_int = 1 << 0;
-pub const POLLNVAL: ::c_int = 1 << 5;
-pub const POLLOUT: ::c_int = 1 << 2;
+pub const POLLHUP: ::c_short = 1 << 4;
+pub const POLLIN: ::c_short = 1 << 0;
+pub const POLLNVAL: ::c_short = 1 << 5;
+pub const POLLOUT: ::c_short = 1 << 2;
 // end poll.h
 
 // start pthread_integration.h
