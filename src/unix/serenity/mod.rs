@@ -122,7 +122,12 @@ s! {
         pub st_blocks: ::blkcnt_t,
         pub st_atim: ::timespec,
         pub st_mtim: ::timespec,
-        pub st_ctim: ::timespec
+        pub st_ctim: ::timespec,
+        pub st_atime: ::time_t, // This field exists as a define in SerenityOS.
+        pub st_mtime: ::time_t, // This field exists as a define in SerenityOS.
+        pub st_ctime: ::time_t, // This field exists as a define in SerenityOS.
+        pub st_atime_nsec: ::time_t, // This field doesn't exist in SerenityOS.
+        pub st_mtime_nsec: ::time_t // This field doesn't exist in SerenityOS.
     }
 }
 // end sys/stat.h
